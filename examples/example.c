@@ -33,15 +33,15 @@ int main()
   // modify the vector size
   size_t size     = vector_size(vector);
   size_t capacity = vector_capacity(vector);
-  printf("Current size: %d capacity: %d\n", size, capacity);
+  printf("Current size: %u capacity: %u\n", size, capacity);
   vector_shrink(vector);
   size     = vector_size(vector);
   capacity = vector_capacity(vector);
-  printf("Current size: %d capacity: %d\n", size, capacity);
+  printf("Current size: %u capacity: %u\n", size, capacity);
   vector_shrink(vector);
   size     = vector_ensure_capacity(vector, 100);
   capacity = vector_capacity(vector);
-  printf("Current size: %d capacity: %d\n", size, capacity);
+  printf("Current size: %u capacity: %u\n", size, capacity);
 
   // when we are done with the vector, we release it
   vector_release(vector);
