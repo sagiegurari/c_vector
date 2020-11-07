@@ -3,9 +3,9 @@
 #include <string.h>
 
 // private functions
-bool _clear(struct Vector *);
-bool _set_capacity_with_buffer(struct Vector *, size_t);
-bool _set_capacity(struct Vector *, size_t);
+bool _vector_clear(struct Vector *);
+bool _vector_set_capacity_with_buffer(struct Vector *, size_t);
+bool _vector_set_capacity(struct Vector *, size_t);
 
 struct Vector
 {
@@ -43,7 +43,7 @@ struct Vector *vector_new_with_options(const size_t initial_size, const bool all
   vector->capacity = size;
 
   vector->buffer = NULL;
-  if (!_clear(vector))
+  if (!_vector_clear(vector))
   {
     vector_release(vector);
     return(NULL);
@@ -99,7 +99,7 @@ bool vector_clear(struct Vector *vector)
     return(true);
   }
 
-  return(_clear(vector));
+  return(_vector_clear(vector));
 }
 
 
@@ -134,7 +134,7 @@ bool vector_ensure_capacity(struct Vector *vector, const size_t size)
     return(true);
   }
 
-  return(_set_capacity(vector, size));
+  return(_vector_set_capacity(vector, size));
 }
 
 
@@ -150,7 +150,7 @@ bool vector_shrink(struct Vector *vector)
     return(true);
   }
 
-  return(_set_capacity(vector, vector->size));
+  return(_vector_set_capacity(vector, vector->size));
 }
 
 
@@ -207,7 +207,7 @@ void *vector_set(struct Vector *vector, size_t index, void *item)
     return(NULL);
   }
 
-  if (!_set_capacity_with_buffer(vector, index + 1))
+  if (!_vector_set_capacity_with_buffer(vector, index + 1))
   {
     return(NULL);
   }
@@ -258,7 +258,7 @@ bool vector_insert(struct Vector *vector, size_t index, void *item)
   {
     min_size = vector->size + 1;
   }
-  if (!_set_capacity_with_buffer(vector, min_size))
+  if (!_vector_set_capacity_with_buffer(vector, min_size))
   {
     return(false);
   }
@@ -318,7 +318,7 @@ void *vector_remove(struct Vector *vector, size_t index)
 }
 
 
-bool _clear(struct Vector *vector)
+bool _vector_clear(struct Vector *vector)
 {
   if (vector_is_released(vector))
   {
@@ -351,7 +351,7 @@ bool _clear(struct Vector *vector)
 }
 
 
-bool _set_capacity_with_buffer(struct Vector *vector, size_t min_size)
+bool _vector_set_capacity_with_buffer(struct Vector *vector, size_t min_size)
 {
   if (min_size > vector->capacity)
   {
@@ -360,7 +360,7 @@ bool _set_capacity_with_buffer(struct Vector *vector, size_t min_size)
     {
       new_size = min_size * 2;
     }
-    if (!_set_capacity(vector, new_size))
+    if (!_vector_set_capacity(vector, new_size))
     {
       return(false);
     }
@@ -370,7 +370,7 @@ bool _set_capacity_with_buffer(struct Vector *vector, size_t min_size)
 }
 
 
-bool _set_capacity(struct Vector *vector, const size_t size)
+bool _vector_set_capacity(struct Vector *vector, const size_t size)
 {
   if (!vector->allow_resize)
   {
