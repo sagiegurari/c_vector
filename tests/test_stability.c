@@ -12,7 +12,7 @@ enum Type
 
 struct Item
 {
-  enum  Type type;
+  enum Type type;
 };
 
 
@@ -40,16 +40,26 @@ void test_impl()
     item->type = SET;
     item       = (struct Item *)vector_set(vector, vector_size(vector) - 1, item);
     assert_true(item->type == INSERT);
+    free(item);
 
     item = (struct Item *)vector_remove(vector, 0);
     assert_true(item->type == PREPEND);
+    free(item);
 
     vector_shrink(vector);
   }
 
-  void   **array = vector_to_array(vector);
-  size_t size    = vector_size(vector);
+  void **array = vector_to_array(vector);
+  assert_true(array != NULL);
+  free(array);
+  size_t size = vector_size(vector);
   assert_num_equal(size, loops * 2);
+
+  for (size_t index = 0; index < size; index++)
+  {
+    struct Item *item = (struct Item *)vector_get(vector, index);
+    free(item);
+  }
 
   vector_clear(vector);
   size = vector_size(vector);
@@ -57,7 +67,6 @@ void test_impl()
   assert_true(vector_is_empty(vector));
 
   vector_release(vector);
-  free_deep(array, size);
 } /* test_impl */
 
 

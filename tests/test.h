@@ -11,7 +11,5 @@ void assert_true(bool);
 void assert_num_equal(size_t, size_t);
 void assert_string_equal(char *, char *);
 
-void free_deep(void **, size_t);
-
 #endif
 

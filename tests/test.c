@@ -49,23 +49,3 @@ void assert_string_equal(char *value1, char *value2)
   }
 }
 
-
-void free_deep(void **array, size_t size)
-{
-  if (array == NULL)
-  {
-    return;
-  }
-
-  for (size_t index = 0; index < size; index++)
-  {
-    void *value = array[index];
-    if (value != NULL)
-    {
-      free(value);
-    }
-  }
-
-  free(array);
-}
-
