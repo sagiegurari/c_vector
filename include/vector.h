@@ -6,7 +6,7 @@
 
 struct Vector;
 
-struct Vector *vector_new();
+struct Vector *vector_new(void);
 struct Vector *vector_new_with_options(const size_t /* initial_size */, const bool /* allow_resize */);
 
 bool vector_is_released(struct Vector *);
