@@ -3,9 +3,9 @@
 #include <string.h>
 
 // private functions
-bool _vector_clear(struct Vector *);
-bool _vector_set_capacity_with_buffer(struct Vector *, size_t);
-bool _vector_set_capacity(struct Vector *, size_t);
+static bool _vector_clear(struct Vector *);
+static bool _vector_set_capacity_with_buffer(struct Vector *, size_t);
+static bool _vector_set_capacity(struct Vector *, size_t);
 
 struct Vector
 {
@@ -318,7 +318,7 @@ void *vector_remove(struct Vector *vector, size_t index)
 }
 
 
-bool _vector_clear(struct Vector *vector)
+static bool _vector_clear(struct Vector *vector)
 {
   if (vector_is_released(vector))
   {
@@ -351,7 +351,7 @@ bool _vector_clear(struct Vector *vector)
 }
 
 
-bool _vector_set_capacity_with_buffer(struct Vector *vector, size_t min_size)
+static bool _vector_set_capacity_with_buffer(struct Vector *vector, size_t min_size)
 {
   if (min_size > vector->capacity)
   {
@@ -370,7 +370,7 @@ bool _vector_set_capacity_with_buffer(struct Vector *vector, size_t min_size)
 }
 
 
-bool _vector_set_capacity(struct Vector *vector, const size_t size)
+static bool _vector_set_capacity(struct Vector *vector, const size_t size)
 {
   if (!vector->allow_resize)
   {
