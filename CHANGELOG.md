@@ -6,6 +6,7 @@
 * Test memory leaks in CI
 * Added void to no arg functions
 * Added static to internal functions
+* Adding lint checks as part of build
 * Added cargo-make makefile for simpler sharing of optional development build instructions.
 
 ### v0.1.1 (2020-11-07)
