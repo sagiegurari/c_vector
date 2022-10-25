@@ -9,7 +9,6 @@ struct Vector;
 struct Vector *vector_new(void);
 struct Vector *vector_new_with_options(const size_t /* initial_size */, const bool /* allow_resize */);
 
-bool vector_is_released(struct Vector *);
 bool vector_is_empty(struct Vector *);
 size_t vector_size(struct Vector *);
 size_t vector_capacity(struct Vector *);

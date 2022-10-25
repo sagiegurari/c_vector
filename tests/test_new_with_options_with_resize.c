@@ -6,7 +6,6 @@ void test_impl()
 {
   struct Vector *vector = vector_new_with_options(50, true);
 
-  assert_true(!vector_is_released(vector));
   assert_true(vector_is_empty(vector));
   assert_num_equal(vector_size(vector), 0);
   assert_num_equal(vector_capacity(vector), 50);

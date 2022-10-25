@@ -9,7 +9,6 @@ static bool _vector_set_capacity(struct Vector *, size_t);
 
 struct Vector
 {
-  bool   released;
   size_t size;
   size_t capacity;
   void   **buffer;
@@ -38,7 +37,6 @@ struct Vector *vector_new_with_options(const size_t initial_size, const bool all
     return(NULL);
   }
 
-  vector->released = false;
   vector->size     = 0;
   vector->capacity = size;
 
@@ -56,39 +54,53 @@ struct Vector *vector_new_with_options(const size_t initial_size, const bool all
 }
 
 
-bool vector_is_released(struct Vector *vector)
-{
-  return(vector == NULL || vector->released);
-}
-
-
 bool vector_is_empty(struct Vector *vector)
 {
+  if (vector == NULL)
+  {
+    return(true);
+  }
+
   return(vector->size == 0);
 }
 
 
 size_t vector_size(struct Vector *vector)
 {
+  if (vector == NULL)
+  {
+    return(0);
+  }
+
   return(vector->size);
 }
 
 
 size_t vector_capacity(struct Vector *vector)
 {
+  if (vector == NULL)
+  {
+    return(0);
+  }
+
   return(vector->capacity);
 }
 
 
 bool  vector_is_allow_resize(struct Vector *vector)
 {
+  if (vector == NULL)
+  {
+    return(false);
+  }
+
   return(vector->allow_resize);
 }
 
 
 bool vector_clear(struct Vector *vector)
 {
-  if (vector_is_released(vector))
+  if (vector == NULL)
   {
     return(false);
   }
@@ -105,7 +117,7 @@ bool vector_clear(struct Vector *vector)
 
 void vector_release(struct Vector *vector)
 {
-  if (vector_is_released(vector))
+  if (vector == NULL)
   {
     return;
   }
@@ -116,15 +128,13 @@ void vector_release(struct Vector *vector)
     vector->buffer = NULL;
   }
 
-  vector->released = true;
-
   free(vector);
 }
 
 
 bool vector_ensure_capacity(struct Vector *vector, const size_t size)
 {
-  if (vector_is_released(vector))
+  if (vector == NULL)
   {
     return(false);
   }
@@ -140,7 +150,7 @@ bool vector_ensure_capacity(struct Vector *vector, const size_t size)
 
 bool vector_shrink(struct Vector *vector)
 {
-  if (vector_is_released(vector))
+  if (vector == NULL)
   {
     return(false);
   }
@@ -156,7 +166,7 @@ bool vector_shrink(struct Vector *vector)
 
 void **vector_to_array(struct Vector *vector)
 {
-  if (vector_is_released(vector))
+  if (vector == NULL)
   {
     return(NULL);
   }
@@ -175,7 +185,7 @@ void **vector_to_array(struct Vector *vector)
 
 bool vector_push(struct Vector *vector, void *item)
 {
-  if (vector_is_released(vector))
+  if (vector == NULL)
   {
     return(false);
   }
@@ -186,7 +196,7 @@ bool vector_push(struct Vector *vector, void *item)
 
 void *vector_pop(struct Vector *vector)
 {
-  if (vector_is_released(vector))
+  if (vector == NULL)
   {
     return(NULL);
   }
@@ -202,7 +212,7 @@ void *vector_pop(struct Vector *vector)
 
 void *vector_set(struct Vector *vector, size_t index, void *item)
 {
-  if (vector_is_released(vector))
+  if (vector == NULL)
   {
     return(NULL);
   }
@@ -226,7 +236,7 @@ void *vector_set(struct Vector *vector, size_t index, void *item)
 
 void *vector_get(struct Vector *vector, size_t index)
 {
-  if (vector_is_released(vector))
+  if (vector == NULL)
   {
     return(NULL);
   }
@@ -248,7 +258,7 @@ bool vector_prepend(struct Vector *vector, void *item)
 
 bool vector_insert(struct Vector *vector, size_t index, void *item)
 {
-  if (vector_is_released(vector))
+  if (vector == NULL)
   {
     return(false);
   }
@@ -294,7 +304,7 @@ bool vector_insert(struct Vector *vector, size_t index, void *item)
 
 void *vector_remove(struct Vector *vector, size_t index)
 {
-  if (vector_is_released(vector))
+  if (vector == NULL)
   {
     return(NULL);
   }
@@ -320,7 +330,7 @@ void *vector_remove(struct Vector *vector, size_t index)
 
 static bool _vector_clear(struct Vector *vector)
 {
-  if (vector_is_released(vector))
+  if (vector == NULL)
   {
     return(false);
   }
@@ -353,6 +363,11 @@ static bool _vector_clear(struct Vector *vector)
 
 static bool _vector_set_capacity_with_buffer(struct Vector *vector, size_t min_size)
 {
+  if (vector == NULL)
+  {
+    return(false);
+  }
+
   if (min_size > vector->capacity)
   {
     size_t new_size = vector->size * 2;
@@ -372,7 +387,7 @@ static bool _vector_set_capacity_with_buffer(struct Vector *vector, size_t min_s
 
 static bool _vector_set_capacity(struct Vector *vector, const size_t size)
 {
-  if (!vector->allow_resize)
+  if (vector == NULL || !vector->allow_resize)
   {
     return(false);
   }

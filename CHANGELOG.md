@@ -1,7 +1,9 @@
 ## CHANGELOG
 
-### v0.1.2
+### v0.1.2 (2022-10-25)
 
+* Handle null vector as input
+* Removed vector_is_released function
 * Free all memory in tests
 * Test memory leaks in CI
 * Added void to no arg functions
