@@ -15,7 +15,7 @@ struct Vector
   bool   allow_resize;
 };
 
-struct Vector *vector_new()
+struct Vector *vector_new(void)
 {
   return(vector_new_with_options(20, true));
 }
