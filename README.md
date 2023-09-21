@@ -19,6 +19,7 @@ This library provides a simple growable vector with many different manipulation 
 <a name="usage"></a>
 ## Usage
 
+<!-- example source start -->
 ```c
 #include "vector.h"
 #include <stdio.h>
@@ -69,6 +70,7 @@ int main()
   vector_release(vector);
 } /* main */
 ```
+<!-- example source end -->
 
 ## Contributing
 See [contributing guide](.github/CONTRIBUTING.md)
